@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TapGoods PRO — Training Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--navy:#092D55;--blue:#0084FE;--bl:#3EAAFF;--bg:#F1F7F9;--bdr:#C8DDED;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh;display:flex;flex-direction:column;}
+.hdr{background:var(--navy);padding:28px 24px 22px;position:relative;flex-shrink:0;}
+.hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#FF4370,#0084FE,#FFB82A);}
+.hdr-in{max-width:1080px;margin:0 auto;display:flex;align-items:flex-start;gap:24px;flex-wrap:wrap;}
+.hdr-left{flex:1;min-width:200px;}
+.badge{display:inline-block;background:rgba(0,132,254,.18);border:1px solid rgba(0,132,254,.35);color:var(--bl);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:10px;}
+.hdr h1{font-size:clamp(20px,3vw,32px);font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1.15;}
+.hdr h1 span{color:var(--blue);}
+.hdr-sub{color:rgba(255,255,255,.5);font-size:14px;margin-top:5px;}
+.install-box{background:rgba(0,132,254,.1);border:1px solid rgba(0,132,254,.28);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:12px;min-width:260px;}
+.istep{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(255,255,255,.75);line-height:1.5;}
+.inum{width:20px;height:20px;border-radius:50%;background:var(--blue);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.bm-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.bm-btn{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:#fff;font-family:'Outfit',sans-serif;font-size:14px;font-weight:700;padding:11px 20px;border-radius:100px;text-decoration:none;border:2px solid rgba(0,132,254,.5);cursor:grab;user-select:none;white-space:nowrap;transition:transform .15s,box-shadow .15s;box-shadow:0 3px 12px rgba(0,0,0,.25);}
+.bm-btn:hover{transform:scale(1.03);}
+.test-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(0,132,254,.15);color:var(--bl);font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;padding:8px 14px;border-radius:100px;border:1px solid rgba(0,132,254,.3);cursor:pointer;white-space:nowrap;transition:background .15s;}
+.test-btn:hover{background:rgba(0,132,254,.28);}
+.hint{font-size:11px;color:rgba(255,255,255,.38);line-height:1.5;}
+.body{max-width:1080px;width:100%;margin:0 auto;padding:20px 16px 48px;display:flex;gap:18px;flex:1;}
+.sidebar{width:162px;flex-shrink:0;}
+.tab-btn{display:flex;align-items:center;gap:8px;width:100%;padding:9px 11px;border:none;background:none;border-radius:10px;cursor:pointer;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;color:#5A7A9A;text-align:left;transition:all .17s;margin-bottom:2px;}
+.tab-btn:hover{background:rgba(0,132,254,.08);color:var(--navy);}
+.tab-btn.on{background:var(--blue);color:#fff;box-shadow:0 3px 10px rgba(0,132,254,.28);}
+.cnt{margin-left:auto;font-size:11px;font-weight:700;background:rgba(9,45,85,.08);color:#8AADCC;padding:1px 7px;border-radius:100px;}
+.tab-btn.on .cnt{background:rgba(255,255,255,.2);color:rgba(255,255,255,.85);}
+.content{flex:1;min-width:0;}
+.sw{position:relative;margin-bottom:16px;}
+.si-ico{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:15px;pointer-events:none;}
+#search{width:100%;padding:10px 14px 10px 38px;border:1.5px solid var(--bdr);border-radius:100px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--navy);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;}
+#search:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,132,254,.12);}
+#search::placeholder{color:#AACCE0;}
+.grp{margin-bottom:16px;}
+.glbl{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--blue);padding:3px 0 7px;border-bottom:1px solid var(--bdr);margin-bottom:6px;}
+.wrow{display:flex;align-items:center;gap:10px;padding:9px 13px;border-radius:9px;background:#fff;border:1px solid var(--bdr);margin-bottom:5px;text-decoration:none;color:var(--navy);transition:all .16s;}
+.wrow:hover{border-color:var(--blue);background:#EBF5FF;transform:translateX(2px);}
+.wrow:hover .arr{color:var(--blue);}
+.wtitle{flex:1;font-size:13.5px;font-weight:600;line-height:1.35;}
+.arr{font-size:15px;color:#C8DDED;flex-shrink:0;transition:color .16s;}
+.empty{text-align:center;padding:48px 20px;color:#8AADCC;}
+@media(max-width:600px){.body{flex-direction:column;}.sidebar{width:100%;display:flex;flex-wrap:wrap;gap:4px;}.tab-btn{width:auto;display:inline-flex;}.cnt{display:none;}.hdr-in{flex-direction:column;}.install-box{width:100%;}}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-in">
+    <div class="hdr-left">
+      <div class="badge">✦ Training Hub</div>
+      <h1>TapGoods <span>PRO</span> Training Hub</h1>
+      <div class="hdr-sub">Every walkthrough from every section — one bookmark opens them all inside TapGoods</div>
+    </div>
+    <div class="install-box">
+      <div class="istep"><div class="inum">1</div><span>Drag the button to your <strong style="color:#fff">bookmarks bar</strong></span></div>
+      <div class="bm-row">
+        <a class="bm-btn" id="bm-link" href="#">🎓 TapGoods Training Hub</a>
+        <button class="test-btn" onclick="runHub()">▶ Test</button>
+      </div>
+      <div class="istep"><div class="inum">2</div><span>In TapGoods, click the bookmark → hub opens</span></div>
+      <div class="hint">Show bookmarks bar: ⌘⇧B / Ctrl+Shift+B · Delete old bookmark first</div>
+    </div>
+  </div>
+</div>
+
+<div class="body">
+  <div class="sidebar" id="sidebar">
+    <button class="tab-btn on" data-tab="all">📋 All <span class="cnt" id="c-all"></span></button>
+    <button class="tab-btn" data-tab="Admin">⚙️ Admin <span class="cnt" id="c-Admin"></span></button>
+    <button class="tab-btn" data-tab="Storefront">🛍️ Storefront <span class="cnt" id="c-Storefront"></span></button>
+    <button class="tab-btn" data-tab="Operations">🚚 Operations <span class="cnt" id="c-Operations"></span></button>
+    <button class="tab-btn" data-tab="Contacts">👤 Contacts <span class="cnt" id="c-Contacts"></span></button>
+    <button class="tab-btn" data-tab="Inventory">📦 Inventory <span class="cnt" id="c-Inventory"></span></button>
+    <button class="tab-btn" data-tab="Orders">🛒 Orders <span class="cnt" id="c-Orders"></span></button>
+    <button class="tab-btn" data-tab="Dashboard">📊 Dashboard <span class="cnt" id="c-Dashboard"></span></button>
+  </div>
+  <div class="content">
+    <div class="sw"><span class="si-ico">🔍</span><input type="text" id="search" placeholder="Search all walkthroughs…" autocomplete="off"></div>
+    <div id="list"></div>
+  </div>
+</div>
+
+<script id="walk-data" type="application/json">
+[
+  {"s":"Admin","g":"Account Settings","t":"How To: Add ACH Info to Account","u":"https://business.tapgoods.com/at-a-glance/?imTopic=90320"},
+  {"s":"Admin","g":"Order Settings","t":"Admin: Order Settings [Overview]","u":"https://business.tapgoods.com/at-a-glance/?imTopic=85470"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Enable Auto Convert Quotes to Reservations","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105604"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Set Up Default Order Times","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105497"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Set Up Default Quote Order Expiration","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105498"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Set Up Payment Terms","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105500"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Set up Autobook","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105502"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Set Up Overbooking on Storefront","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105503"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Set Up Final Balance Due Dates","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105504"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Set Up Payment Notification Emails","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105521"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Set Up Minimum Order Amounts for Storefront","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105522"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Set Up Minimum Deposit Amount","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105530"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Set Up Signature Requirements for Orders","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105533"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Enable Auto-Convert AR Orders","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105534"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Add Damage Waiver Fees","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105539"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Add Credit Card Fees to TapGoods PRO","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105540"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Set Up Delivery Options","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105552"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Add Discounts to TapGoods PRO","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105558"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Add Sales Tax to TapGoods PRO","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105559"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Add Fees to TapGoods PRO","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105560"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Change Subrental Settings","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105564"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Set Up Default Display Settings","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105566"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Enable Show Set By Times","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105567"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Show Individual Inventory Pricing to Customers","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105597"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Enable Inv. Images (PDFs/Prints)","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105598"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Enable Inventory Soft Holds","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105599"},
+  {"s":"Admin","g":"Order Settings","t":"How To: Default Note Configuration","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105601"},
+  {"s":"Admin","g":"Legal Settings","t":"Legal Settings Overview","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105998"},
+  {"s":"Admin","g":"Location Settings","t":"Admin: Location Settings","u":"https://business.tapgoods.com/at-a-glance/?imTopic=106005"},
+  {"s":"Admin","g":"Email Settings","t":"Email Settings Overview","u":"https://business.tapgoods.com/at-a-glance/?imTopic=89048"},
+  {"s":"Admin","g":"Inventory Settings","t":"Admin: Inventory Settings Overview","u":"https://business.tapgoods.com/at-a-glance/?imTopic=87432"},
+  {"s":"Admin","g":"Inventory Settings","t":"Admin: Inventory Pricing","u":"https://business.tapgoods.com/at-a-glance/?imTopic=87466"},
+  {"s":"Admin","g":"Inventory Settings","t":"Admin: Inventory Departments","u":"https://business.tapgoods.com/at-a-glance/?imTopic=87417"},
+  {"s":"Admin","g":"Inventory Settings","t":"How To: Create Additional Taxes","u":"https://business.tapgoods.com/at-a-glance/?imTopic=90319"},
+  {"s":"Admin","g":"Inventory Settings","t":"How To: Create Categories and Tags","u":"https://business.tapgoods.com/at-a-glance/?imTopic=87145"},
+  {"s":"Admin","g":"Inventory Settings","t":"How To: Create Usage Units","u":"https://business.tapgoods.com/at-a-glance/?imTopic=89148"},
+  {"s":"Admin","g":"Inventory Settings","t":"How To: Sort Uncategorized Tags","u":"https://business.tapgoods.com/at-a-glance/?imTopic=87471"},
+  {"s":"Admin","g":"Inventory Settings","t":"Create Custom Flat Pricing Models","u":"https://business.tapgoods.com/at-a-glance/?imTopic=89000"},
+  {"s":"Admin","g":"Inventory Settings","t":"How To: Change Email Settings for Scheduled Maintenance","u":"https://business.tapgoods.com/at-a-glance/?imTopic=106045"},
+  {"s":"Admin","g":"Routing Settings","t":"How To: Add a Truck for Routing","u":"https://business.tapgoods.com/at-a-glance/?imTopic=88432"},
+  {"s":"Admin","g":"Picklist Settings","t":"Creating Custom Picklist Statuses","u":"https://business.tapgoods.com/at-a-glance/?imTopic=90745"},
+  {"s":"Admin","g":"Terminology","t":"How To: Change the Terminology in TapGoods PRO","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105919"},
+  {"s":"Admin","g":"Team Settings","t":"Add a New Team Member","u":"https://business.tapgoods.com/at-a-glance/?imTopic=88986"},
+  {"s":"Admin","g":"Team Settings","t":"Deleting a Team Member","u":"https://business.tapgoods.com/at-a-glance/?imTopic=88987"},
+  {"s":"Admin","g":"Team Settings","t":"Review and Adjust Team Permissions","u":"https://business.tapgoods.com/at-a-glance/?imTopic=88996"},
+  {"s":"Admin","g":"Team Settings","t":"Manage Team Permissions","u":"https://business.tapgoods.com/at-a-glance/?imTopic=86419"},
+  {"s":"Admin","g":"Team Settings","t":"Altering a Team Member's User Tier","u":"https://business.tapgoods.com/at-a-glance/?imTopic=88994"},
+  {"s":"Admin","g":"Contact Settings","t":"Admin: Contact Settings","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105922"},
+  {"s":"Admin","g":"Print Settings","t":"Admin: Print Settings","u":"https://business.tapgoods.com/at-a-glance/?imTopic=106046"},
+  {"s":"Admin","g":"Financial Settings","t":"Admin: Financial Settings","u":"https://business.tapgoods.com/at-a-glance/?imTopic=89046"},
+  {"s":"Admin","g":"Multilocation Settings","t":"How To: Share Team Members with Other Locations","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106286"},
+  {"s":"Admin","g":"Multilocation Settings","t":"Multilocation Settings Overview","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106222"},
+  {"s":"Admin","g":"Reports","t":"Export a List of your Inventory","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107797"},
+  {"s":"Admin","g":"Reports","t":"Creating a Custom Export","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107415"},
+  {"s":"Admin","g":"Reports","t":"Creating a Custom Export Template","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107433"},
+  {"s":"Admin","g":"Reports","t":"Sales Tax Report","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107395"},
+  {"s":"Admin","g":"Reports","t":"General Ledger","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107393"},
+  {"s":"Admin","g":"Reports","t":"Financial Settings on BI Reports","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107391"},
+  {"s":"Admin","g":"Reports","t":"Updating the Inventory Ledger","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107393"},
+  {"s":"Admin","g":"Payments","t":"Guide: Accounts Receivable","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107412"},
+  {"s":"Storefront","g":"Storefront","t":"Shop + Cart","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106773"},
+  {"s":"Storefront","g":"Storefront","t":"Branding your Storefront","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106841"},
+  {"s":"Storefront","g":"Storefront","t":"Adding Pages to Storefront","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106749"},
+  {"s":"Storefront","g":"Storefront","t":"Adding Logos to your Storefront","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106840"},
+  {"s":"Storefront","g":"Storefront","t":"Guide to Smartlinks","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106495"},
+  {"s":"Storefront","g":"Storefront","t":"Adding Testimonials to Storefront","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106494"},
+  {"s":"Storefront","g":"Storefront","t":"Allowing Customers to Request Changes from Storefront","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106493"},
+  {"s":"Storefront","g":"Storefront","t":"Choosing a Theme for Storefront","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106759"},
+  {"s":"Storefront","g":"Storefront","t":"Changing your Storefront Footer","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106771"},
+  {"s":"Storefront","g":"Storefront","t":"Creating a Look for Storefront","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106770"},
+  {"s":"Storefront","g":"Storefront","t":"Customizing your Storefront Menu","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106789"},
+  {"s":"Storefront","g":"Storefront","t":"Customizing your Storefront Colors & Font","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106790"},
+  {"s":"Storefront","g":"Storefront","t":"Guide to Global SEO & Tracking","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106747"},
+  {"s":"Operations","g":"Routing","t":"How To: Schedule a Truck from Orders","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106291"},
+  {"s":"Operations","g":"Warehouse","t":"Guide: Checking In/Checking Out Pages","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107203"},
+  {"s":"Operations","g":"Warehouse","t":"Bulk Checking In Orders","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107204"},
+  {"s":"Operations","g":"Warehouse","t":"Bulk Checking Out Orders","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107206"},
+  {"s":"Operations","g":"Services","t":"Adding Services to TapGoods PRO","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107055"},
+  {"s":"Operations","g":"Services","t":"Adding Recurrences to TapGoods PRO","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107081"},
+  {"s":"Operations","g":"Staffing","t":"Adding Staff Members to TapGoods PRO","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107084"},
+  {"s":"Operations","g":"Staffing","t":"Guide: Staffing Schedule","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107086"},
+  {"s":"Operations","g":"Calendars","t":"Guide: Alerts Calendar","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107028"},
+  {"s":"Operations","g":"Calendars","t":"Guide: Orders Calendar","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107034"},
+  {"s":"Operations","g":"Calendars","t":"Guide: Availability Calendar","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107027"},
+  {"s":"Operations","g":"Calendars","t":"Guide: Drop Off/Pick Up Calendar","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107036"},
+  {"s":"Contacts","g":"Customers","t":"How To: Create a Customer","u":"https://business.tapgoods.com/at-a-glance/?imTopic=88016"},
+  {"s":"Contacts","g":"Customers","t":"How To: Bulk Import Customers","u":"https://business.tapgoods.com/at-a-glance/?imTopic=88018"},
+  {"s":"Contacts","g":"Companies","t":"How To: Create a Company","u":"https://business.tapgoods.com/at-a-glance/?imTopic=88017"},
+  {"s":"Contacts","g":"Companies","t":"How To: Bulk Import Companies","u":"https://business.tapgoods.com/at-a-glance/?imTopic=90768"},
+  {"s":"Contacts","g":"Venues","t":"How To: Create a Venue","u":"https://business.tapgoods.com/at-a-glance/?imTopic=87674"},
+  {"s":"Contacts","g":"Venues","t":"How To: Bulk Import Venues","u":"https://business.tapgoods.com/at-a-glance/?imTopic=90769"},
+  {"s":"Contacts","g":"Venues","t":"How To: Upload Documents to Customers","u":"https://business.tapgoods.com/at-a-glance/?imTopic=93539"},
+  {"s":"Inventory","g":"Items","t":"How To: Create an Item","u":"https://business.tapgoods.com/at-a-glance/?imTopic=87441"},
+  {"s":"Inventory","g":"Items","t":"How To: Bulk Import Items","u":"https://business.tapgoods.com/at-a-glance/?imTopic=88014"},
+  {"s":"Inventory","g":"Items","t":"How To: Create Serialized Inventory","u":"https://business.tapgoods.com/at-a-glance/?imTopic=87428"},
+  {"s":"Inventory","g":"Items","t":"Assigning Usage to Serialized Items","u":"https://business.tapgoods.com/at-a-glance/?imTopic=87422"},
+  {"s":"Inventory","g":"Items","t":"Guide: Scheduled Maintenance","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=108069"},
+  {"s":"Inventory","g":"Purchases","t":"How To: Create a Purchase","u":"https://business.tapgoods.com/at-a-glance/?imTopic=87842"},
+  {"s":"Inventory","g":"Purchases","t":"How To: Bulk Import Purchases","u":"https://business.tapgoods.com/at-a-glance/?imTopic=90766"},
+  {"s":"Inventory","g":"Accessories","t":"How To: Create an Accessory","u":"https://business.tapgoods.com/at-a-glance/?imTopic=88013"},
+  {"s":"Inventory","g":"Accessories","t":"How To: Bulk Import Accessories","u":"https://business.tapgoods.com/at-a-glance/?imTopic=90765"},
+  {"s":"Inventory","g":"Bundles","t":"How To: Create a Bundle","u":"https://business.tapgoods.com/at-a-glance/?imTopic=88015"},
+  {"s":"Inventory","g":"Inventory","t":"How To: Delete Inventory","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106256"},
+  {"s":"Orders","g":"Creating an Order","t":"Creating a Basic Order in TapGoods PRO","u":"https://business.tapgoods.com/at-a-glance/?imTopic=89123"},
+  {"s":"Orders","g":"Creating an Order","t":"A Detailed Guide to the Order Form","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105175"},
+  {"s":"Orders","g":"Creating an Order","t":"Create Custom Headers in an Order","u":"https://business.tapgoods.com/at-a-glance/?imTopic=89235"},
+  {"s":"Orders","g":"Creating an Order","t":"Making Item Notes Customer-Facing","u":"https://business.tapgoods.com/at-a-glance/?imTopic=88685"},
+  {"s":"Orders","g":"Creating an Order","t":"How To: Create an Order Template","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106188"},
+  {"s":"Orders","g":"Creating an Order","t":"How To: Add a Temporary Item to an Order","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106183"},
+  {"s":"Orders","g":"Creating an Order","t":"How To: Change the Status of an Order","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106182"},
+  {"s":"Orders","g":"Creating an Order","t":"How To: Cancel an Order","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106741"},
+  {"s":"Orders","g":"Creating an Order","t":"How To: Add Temporary Discounts to Orders","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106070"},
+  {"s":"Orders","g":"Creating an Order","t":"Adding a Temporary Item to an Order","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107484"},
+  {"s":"Orders","g":"Creating an Order","t":"Add an Expiration Date to an Order","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107826"},
+  {"s":"Orders","g":"Creating an Order","t":"Change the Order Agreement on an Order","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107370"},
+  {"s":"Orders","g":"Creating an Order","t":"Change the Display Settings on an Order","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107379"},
+  {"s":"Orders","g":"Creating an Order","t":"Adding Documents to Orders","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107790"},
+  {"s":"Orders","g":"Creating an Order","t":"Adding Contacts to Orders","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=107827"},
+  {"s":"Orders","g":"Creating an Order","t":"Adding Dates & Times to Orders","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=108068"},
+  {"s":"Orders","g":"Orders","t":"Guide: Order Pages","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106098"},
+  {"s":"Dashboard","g":"Dashboard","t":"Guide: The At-A-Glance Page","u":"https://business.tapgoods.com/at-a-glance/?imTopic=105840"},
+  {"s":"Dashboard","g":"Dashboard","t":"Guide: Payments Page","u":"https://business.tapgoods.com/payments/recent/?imTopic=106284"},
+  {"s":"Dashboard","g":"Dashboard","t":"Guide: Dashboard Schedule","u":"https://business.tapgoods.com/dashboard/orders/?imTopic=106306"},
+  {"s":"Dashboard","g":"Dashboard","t":"Guide: To-Do's Page","u":"https://business.tapgoods.com/todos/orders/lead/?imTopic=106257"}
+]
+</script>
+
+<script>
+// Load walk data from the JSON script tag (keeps it out of the bookmarklet)
+var W = JSON.parse(document.getElementById('walk-data').textContent);
+
+// ── HUB: the actual popup that runs inside TapGoods ──────────────────────────
+// This function is SMALL — it fetches W from window.__TG_HUB_DATA which
+// the bookmarklet stores before calling this.
+function buildHub(W) {
+  ['tg-hub-root','tg-hub-sty'].forEach(function(id){var e=document.getElementById(id);if(e)e.remove();});
+  var sty=document.createElement('style');sty.id='tg-hub-sty';
+  sty.textContent='#tg-hub-root *{box-sizing:border-box;font-family:Outfit,-apple-system,sans-serif!important;}'
+  +'#tg-hub-bd{position:fixed;inset:0;z-index:2147483640;background:rgba(9,45,85,.58);animation:tgfi .2s ease;}'
+  +'@keyframes tgfi{from{opacity:0}to{opacity:1}}'
+  +'#tg-hub-p{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2147483641;'
+  +'background:#fff;border-radius:16px;box-shadow:0 32px 80px rgba(9,45,85,.35);'
+  +'width:600px;max-width:calc(100vw - 24px);max-height:90vh;overflow:hidden;'
+  +'display:flex;flex-direction:column;animation:tgsi .26s cubic-bezier(.4,0,.2,1);}'
+  +'@keyframes tgsi{from{opacity:0;transform:translate(-50%,-47%)}to{opacity:1;transform:translate(-50%,-50%)}}'
+  +'#tg-hub-hd{background:#092D55;padding:15px 18px 13px;flex-shrink:0;position:relative;display:flex;align-items:center;gap:12px;}'
+  +'#tg-hub-hd::after{content:"";position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#FF4370,#0084FE,#FFB82A);}'
+  +'#tg-hub-i{flex:1;}'
+  +'#tg-hub-lg{font-size:11px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.05em;margin-bottom:3px;}'
+  +'#tg-hub-ti{font-size:17px;font-weight:800;color:#fff;}'
+  +'#tg-hub-su{font-size:12px;color:rgba(255,255,255,.45);margin-top:2px;}'
+  +'#tg-hub-cl{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.4);font-size:22px;line-height:1;padding:0;}'
+  +'#tg-hub-cl:hover{color:#fff;}'
+  +'#tg-hub-tabs{display:flex;flex-wrap:wrap;gap:4px;padding:9px 12px;border-bottom:1px solid #E8F4FD;flex-shrink:0;background:#FAFCFE;}'
+  +'.tg-tab{border:none;border-radius:100px;cursor:pointer;font-size:12px;font-weight:600;padding:5px 12px;color:#5A7A9A;background:#EBF4FB;transition:all .17s;}'
+  +'.tg-tab:hover{background:#D6EEFF;color:#092D55;}'
+  +'.tg-tab.on{background:#0084FE;color:#fff;}'
+  +'#tg-hub-sw{padding:10px 12px 0;flex-shrink:0;}'
+  +'#tg-hub-si{width:100%;padding:8px 14px 8px 34px;border:1.5px solid #C8DDED;border-radius:100px;'
+  +'font-size:13.5px;outline:none;color:#092D55;'
+  +'background:#fff url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'14\' height=\'14\' fill=\'%238AADCC\' viewBox=\'0 0 16 16\'%3E%3Cpath d=\'M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.868-3.833zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z\'/%3E%3C/svg%3E") no-repeat 11px center;}'
+  +'#tg-hub-si:focus{border-color:#0084FE;box-shadow:0 0 0 3px rgba(0,132,254,.12);}'
+  +'#tg-hub-body{overflow-y:auto;flex:1;padding:10px 12px 12px;}'
+  +'.tg-gl{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#0084FE;padding:7px 4px 5px;display:block;border-bottom:1px solid #EBF4FB;margin-bottom:4px;}'
+  +'.tg-grp{margin-bottom:6px;}'
+  +'.tg-row{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;cursor:pointer;border:none;background:none;width:100%;text-align:left;transition:background .15s;}'
+  +'.tg-row:hover{background:#EBF5FF;}'
+  +'.tg-rt{flex:1;font-size:13px;font-weight:600;color:#092D55;line-height:1.35;}'
+  +'.tg-ra{font-size:15px;color:#C8DDED;flex-shrink:0;}'
+  +'.tg-row:hover .tg-ra{color:#0084FE;}'
+  +'#tg-hub-ft{padding:9px 14px;border-top:1px solid #EBF4FB;flex-shrink:0;text-align:center;font-size:11px;color:#AACCE0;}'
+  +'.tg-nr{text-align:center;padding:28px;color:#8AADCC;font-size:13px;}';
+  document.head.appendChild(sty);
+
+  var root=document.createElement('div');root.id='tg-hub-root';
+  var bd=document.createElement('div');bd.id='tg-hub-bd';
+  var p=document.createElement('div');p.id='tg-hub-p';
+  var TABS=['All','Admin','Storefront','Operations','Contacts','Inventory','Orders','Dashboard'];
+  p.innerHTML='<div id="tg-hub-hd"><div id="tg-hub-i"><div id="tg-hub-lg">TapGoods PRO</div>'
+    +'<div id="tg-hub-ti">Training Hub</div><div id="tg-hub-su">'+W.length+' walkthroughs</div></div>'
+    +'<button id="tg-hub-cl">&#x2715;</button></div>'
+    +'<div id="tg-hub-tabs">'+TABS.map(function(t){return'<button class="tg-tab'+(t==='All'?' on':'')+'" data-ht="'+t+'">'+t+'</button>';}).join('')+'</div>'
+    +'<div id="tg-hub-sw"><input id="tg-hub-si" placeholder="Search walkthroughs\u2026" autocomplete="off"></div>'
+    +'<div id="tg-hub-body"></div>'
+    +'<div id="tg-hub-ft">Click any walkthrough to open it \u00b7 Esc to close</div>';
+  root.appendChild(bd);root.appendChild(p);document.body.appendChild(root);
+
+  var at='All',sq='';
+  function draw(){
+    var q=sq.toLowerCase();
+    var fil=W.filter(function(w){return(at==='All'||w.s===at)&&(!q||w.t.toLowerCase().indexOf(q)>-1||w.g.toLowerCase().indexOf(q)>-1);});
+    var body=document.getElementById('tg-hub-body');
+    if(!fil.length){body.innerHTML='<div class="tg-nr">No results for \u201c'+sq+'\u201d</div>';return;}
+    var grps={};
+    fil.forEach(function(w){var k=(at==='All'?w.s+' \u2192 ':'')+w.g;if(!grps[k])grps[k]=[];grps[k].push(w);});
+    body.innerHTML=Object.keys(grps).map(function(k){
+      return'<div class="tg-grp"><span class="tg-gl">'+k+'</span>'
+        +grps[k].map(function(w){return'<button class="tg-row" data-u="'+w.u+'"><span class="tg-rt">'+w.t+'</span><span class="tg-ra">\u203a</span></button>';}).join('')+'</div>';
+    }).join('');
+  }
+  function close(){root.style.transition='opacity .2s';root.style.opacity='0';setTimeout(function(){root.remove();sty.remove();},210);}
+  document.getElementById('tg-hub-cl').addEventListener('click',close);
+  bd.addEventListener('click',close);
+  document.addEventListener('keydown',function esc(e){if(e.key==='Escape'){close();document.removeEventListener('keydown',esc);}});
+  p.addEventListener('click',function(e){
+    var tab=e.target.closest('[data-ht]');
+    if(tab){at=tab.dataset.ht;p.querySelectorAll('.tg-tab').forEach(function(b){b.classList.toggle('on',b===tab);});draw();return;}
+    var row=e.target.closest('[data-u]');
+    if(row){window.location.href=row.dataset.u;close();}
+  });
+  var si=document.getElementById('tg-hub-si');
+  si.addEventListener('input',function(){
+    sq=si.value;
+    if(sq&&at!=='All'){at='All';p.querySelectorAll('.tg-tab').forEach(function(b){b.classList.toggle('on',b.dataset.ht==='All');});}
+    draw();
+  });
+  si.focus();draw();
+}
+
+// The function anyone calls (test button on this page, or bookmarklet)
+function runHub() { buildHub(W); }
+
+// ── BOOKMARKLET: tiny — just fetches data from the hosted page then calls buildHub ──
+// The hosted URL is embedded once here; the bookmarklet itself stays tiny
+var HOSTED_URL = 'https://fabulous-cupcake-08622a.netlify.app';
+
+// Build the bookmarklet code — small enough to never be truncated
+var bmCode = (function(URL, buildHubFn) {
+  return 'void(function(){'
+    + 'var e=document.getElementById("tg-hub-root");if(e){e.remove();var s=document.getElementById("tg-hub-sty");if(s)s.remove();return;}'
+    + 'var s=document.createElement("script");'
+    + 's.src="' + URL + '/bookmarklet.js?t="+Date.now();'
+    + 'document.head.appendChild(s);'
+    + '}())';
+})(HOSTED_URL);
+
+// Set the bookmarklet link
+document.getElementById('bm-link').href = 'javascript:' + bmCode;
+
+// ── INSTALL PAGE rendering ───────────────────────────────────────────────────
+var counts={};
+W.forEach(function(w){counts[w.s]=(counts[w.s]||0)+1;});
+document.getElementById('c-all').textContent=W.length;
+Object.keys(counts).forEach(function(s){var el=document.getElementById('c-'+s);if(el)el.textContent=counts[s];});
+
+var activeTab='all',query='';
+function hl(t,q){if(!q)return t;var i=t.toLowerCase().indexOf(q);if(i<0)return t;return t.slice(0,i)+'<mark style="background:#FFF3B0;border-radius:2px;padding:0 1px">'+t.slice(i,i+q.length)+'</mark>'+t.slice(i+q.length);}
+function render(){
+  var q=query.toLowerCase().trim();
+  var f=W.filter(function(w){return(activeTab==='all'||w.s===activeTab)&&(!q||w.t.toLowerCase().indexOf(q)>-1||w.g.toLowerCase().indexOf(q)>-1||w.s.toLowerCase().indexOf(q)>-1);});
+  var list=document.getElementById('list');
+  if(!f.length){list.innerHTML='<div class="empty"><div style="font-size:36px;margin-bottom:8px">&#128269;</div>No walkthroughs match \u201c'+query+'\u201d</div>';return;}
+  var g={};f.forEach(function(w){var k=(activeTab==='all'?w.s+' \u2192 ':'')+w.g;if(!g[k])g[k]=[];g[k].push(w);});
+  list.innerHTML=Object.keys(g).map(function(k){
+    return'<div class="grp"><div class="glbl">'+k+'</div>'+g[k].map(function(w){
+      return'<a class="wrow" href="'+w.u+'" target="_blank" rel="noopener"><span class="wtitle">'+hl(w.t,q)+'</span><span class="arr">\u203a</span></a>';
+    }).join('')+'</div>';
+  }).join('');
+}
+document.getElementById('sidebar').addEventListener('click',function(e){
+  var btn=e.target.closest('[data-tab]');if(!btn)return;
+  activeTab=btn.dataset.tab;
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.toggle('on',b===btn);});
+  render();
+});
+document.getElementById('search').addEventListener('input',function(e){
+  query=e.target.value;
+  if(query&&activeTab!=='all'){activeTab='all';document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.toggle('on',b.dataset.tab==='all');});}
+  render();
+});
+render();
+</script>
+</body>
+</html>
