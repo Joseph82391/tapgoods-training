@@ -1,1 +1,0 @@
-# tapgoods-training
